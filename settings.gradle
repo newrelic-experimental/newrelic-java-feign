@@ -1,1 +1,5 @@
 rootProject.name = 'java-instrumentation-template'
+include 'Feign-Core'
+include 'Feign-HttpClient'
+include 'Feign-Hystrix'
+include 'Feign-Core-10.3.0'
