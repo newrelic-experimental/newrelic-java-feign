@@ -5,6 +5,7 @@ import java.net.URI;
 import com.newrelic.api.agent.HttpParameters;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -19,7 +20,7 @@ public abstract class Client {
 	@Trace(dispatcher=true)
 	public Response execute(Request request, Options options) {
 		RequestWrapper wrapper = new RequestWrapper(request);
-		NewRelic.getAgent().getTracedMethod().addOutboundRequestHeaders(wrapper);
+		NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.HTTP, wrapper);
 		Response response = Weaver.callOriginal();
 		ResponseWrapper respWrapper = new ResponseWrapper(response);
 		String urlStr = request.url();
