@@ -4,11 +4,12 @@
 apply plugin: 'java'
 
 dependencies {
-   
+
    implementation 'io.github.openfeign:feign-httpclient:9.7.0'
 
-    implementation 'com.newrelic.agent.java:newrelic-agent:8.4.0'
-    implementation 'com.newrelic.agent.java:newrelic-api:8.4.0'
+   implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+   implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+   implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
    implementation fileTree(include: ['*.jar'], dir: '../test-lib')
 }
 
@@ -22,7 +23,5 @@ jar {
 }
 
 verifyInstrumentation {
- 
   passesOnly 'io.github.openfeign:feign-httpclient:[9.0.0,)'
-  
 }
